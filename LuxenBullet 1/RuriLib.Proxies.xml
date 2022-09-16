@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RuriLib.Proxies</name>
+    </assembly>
+    <members>
+        <member name="T:RuriLib.Proxies.Clients.HttpProxyClient">
+            <summary>
+            A client that provides proxies connections via HTTP proxies.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.Clients.HttpProxyClient.ProtocolVersion">
+            <summary>
+            The HTTP version to send in the first line of the request to the proxy.
+            By default it's 1.1
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.HttpProxyClient.#ctor(RuriLib.Proxies.ProxySettings)">
+            <summary>
+            Creates an HTTP proxy client given the proxy <paramref name="settings"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.HttpProxyClient.CreateConnectionAsync(System.Net.Sockets.TcpClient,System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Proxies.Clients.NoProxyClient">
+            <summary>
+            A dummy client that does not proxy the connection.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.NoProxyClient.#ctor(RuriLib.Proxies.ProxySettings)">
+            <summary>
+            Provides unproxied connections.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.NoProxyClient.CreateConnectionAsync(System.Net.Sockets.TcpClient,System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Proxies.Clients.Socks4aProxyClient">
+            <summary>
+            A client that provides proxies connections via SOCKS4a proxies.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks4aProxyClient.#ctor(RuriLib.Proxies.ProxySettings)">
+            <summary>
+            Creates an SOCKS4a proxy client given the proxy <paramref name="settings"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks4aProxyClient.RequestConnectionAsync(System.Net.Sockets.NetworkStream,System.Byte,System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Proxies.Clients.Socks4ProxyClient">
+            <summary>
+            A client that provides proxies connections via SOCKS4 proxies.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks4ProxyClient.#ctor(RuriLib.Proxies.ProxySettings)">
+            <summary>
+            Creates an SOCKS4 proxy client given the proxy <paramref name="settings"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks4ProxyClient.CreateConnectionAsync(System.Net.Sockets.TcpClient,System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks4ProxyClient.RequestConnectionAsync(System.Net.Sockets.NetworkStream,System.Byte,System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Requests SOCKS4 connection.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks4ProxyClient.HandleCommandError(System.Byte)">
+            <summary>
+            Handles a command error.
+            </summary>
+        </member>
+        <member name="T:RuriLib.Proxies.Clients.Socks5ProxyClient">
+            <summary>
+            A client that provides proxies connections via SOCKS5 proxies.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks5ProxyClient.#ctor(RuriLib.Proxies.ProxySettings)">
+            <summary>
+            Creates an SOCKS5 proxy client given the proxy <paramref name="settings"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Clients.Socks5ProxyClient.CreateConnectionAsync(System.Net.Sockets.TcpClient,System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Proxies.Exceptions.ProxyException">
+            <summary>
+            Represents errors that occur during proxy execution.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.Exceptions.ProxyException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RuriLib.Proxies.Exceptions.ProxyException"/> with a specified error message 
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:RuriLib.Proxies.Exceptions.ProxyException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RuriLib.Proxies.Exceptions.ProxyException"/> with a specified error message 
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a <see langword="null"/> reference.</param>
+        </member>
+        <member name="T:RuriLib.Proxies.ProxyClient">
+            <summary>
+            Can produce proxied <see cref="T:System.Net.Sockets.TcpClient"/> instances.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.ProxyClient.Settings">
+            <summary>
+            The proxy settings.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.ProxyClient.#ctor(RuriLib.Proxies.ProxySettings)">
+            <summary>
+            Instantiates a proxy client with the given <paramref name="settings"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Proxies.ProxyClient.ConnectAsync(System.String,System.Int32,System.Net.Sockets.TcpClient,System.Threading.CancellationToken)">
+            /// <summary>
+            Create a proxied <see cref="T:System.Net.Sockets.TcpClient"/> to the destination host.
+            </summary>
+            <param name="destinationHost">The host you want to connect to</param>
+            <param name="destinationPort">The port on which the host is listening</param>
+            <param name="cancellationToken">A token to cancel the connection attempt</param>
+            <param name="tcpClient">A <see cref="T:System.Net.Sockets.TcpClient"/> instance (if null, a new one will be created)</param>
+            <exception cref="T:System.ArgumentException">Value of <paramref name="destinationHost"/> is <see langword="null"/> or empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Value of <paramref name="destinationPort"/> less than 1 or greater than 65535.</exception>
+            <exception cref="T:RuriLib.Proxies.Exceptions.ProxyException">Error while working with the proxy.</exception>
+        </member>
+        <member name="M:RuriLib.Proxies.ProxyClient.CreateConnectionAsync(System.Net.Sockets.TcpClient,System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Proxy protocol specific connection.
+            </summary>
+            <param name="tcpClient">The <see cref="T:System.Net.Sockets.TcpClient"/> that can be used to connect to the proxy over TCP</param>
+            <param name="destinationHost">The target host that the proxy needs to connect to</param>
+            <param name="destinationPort">The target port that the proxy needs to connect to</param>
+            <param name="cancellationToken">A token to cancel operations</param>
+        </member>
+        <member name="T:RuriLib.Proxies.ProxySettings">
+            <summary>
+            Settings for <see cref="T:RuriLib.Proxies.ProxyClient"/>.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.ProxySettings.Credentials">
+            <summary>
+            Gets or sets the credentials to submit to the proxy server for authentication.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.ProxySettings.Host">
+            <summary>
+            The hostname or ip of the proxy server.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.ProxySettings.Port">
+            <summary>
+            The port on which the proxy server is listening.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.ProxySettings.ConnectTimeout">
+            <summary>
+            Gets or sets the amount of time the <see cref="T:RuriLib.Proxies.ProxyClient"/>
+            will wait to connect to the proxy server.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Proxies.ProxySettings.ReadWriteTimeOut">
+            <summary>
+            Gets or sets the amount of time the <see cref="T:RuriLib.Proxies.ProxyClient"/>
+            will wait for read or wait data from the proxy server.
+            </summary>
+        </member>
+    </members>
+</doc>

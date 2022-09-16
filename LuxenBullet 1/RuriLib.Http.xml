@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RuriLib.Http</name>
+    </assembly>
+    <members>
+        <member name="M:RuriLib.Http.HttpResponseBuilder.GetResponseAsync(RuriLib.Http.Models.HttpRequest,System.IO.Stream,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Builds an HttpResponse by reading a network stream.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.HttpResponseBuilder.ReadHeadersFastPath(System.Buffers.ReadOnlySequence{System.Byte}@)">
+            <summary>
+            Reads all Header Lines using <see cref="T:System.Span`1"/> For High Perfromace Parsing.
+            </summary>
+            <param name="buff">Buffered Data From Pipe</param>
+        </member>
+        <member name="M:RuriLib.Http.HttpResponseBuilder.ReadHeadersSlowerPath(System.Buffers.ReadOnlySequence{System.Byte}@)">
+            <summary>
+            Reads all Header Lines using SequenceReader.
+            </summary>
+            <param name="buff">Buffered Data From Pipe</param>
+        </member>
+        <member name="M:RuriLib.Http.HttpResponseMessageBuilder.ReadHeadersFastPath(System.Buffers.ReadOnlySequence{System.Byte}@)">
+            <summary>
+            Reads all Header Lines using <see cref="T:System.Span`1"/> For High Perfromace Parsing.
+            </summary>
+            <param name="buff">Buffered Data From Pipe</param>
+        </member>
+        <member name="M:RuriLib.Http.HttpResponseMessageBuilder.ReadHeadersSlowerPath(System.Buffers.ReadOnlySequence{System.Byte}@)">
+            <summary>
+            Reads all Header Lines using SequenceReader.
+            </summary>
+            <param name="buff">Buffered Data From Pipe</param>
+        </member>
+        <member name="T:RuriLib.Http.Models.HttpRequest">
+            <summary>
+            An HTTP request that can be sent using a <see cref="T:RuriLib.Http.RLHttpClient"/>.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.AbsoluteUriInFirstLine">
+            <summary>
+            Whether to write the absolute URI in the first line of the request instead of
+            the relative path (e.g. https://example.com/abc instead of /abc)
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.Version">
+            <summary>
+            The HTTP version to use.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.Method">
+            <summary>
+            The HTTP method to use.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.Uri">
+            <summary>
+            The URI of the remote resource.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.Cookies">
+            <summary>
+            The cookies to send inside the Cookie header of this request.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.Headers">
+            <summary>
+            The headers of this request.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpRequest.Content">
+            <summary>
+            The content of this request.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.Models.HttpRequest.GetBytesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the raw bytes that will be sent on the network stream.
+            </summary>
+            <param name="cancellationToken">The token to cancel the operation</param>
+        </member>
+        <member name="M:RuriLib.Http.Models.HttpRequest.AddHeader(System.String,System.String)">
+            <summary>
+            Safely adds a header to the dictionary.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.Models.HttpRequest.HeaderExists(System.String,System.String@)">
+            <summary>
+            Checks whether a header that matches a given <paramref name="name"/> exists. If it exists,
+            its original name will be written to <paramref name="actualName"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.Models.HttpRequest.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Http.Models.HttpResponse">
+            <summary>
+            An HTTP response obtained with a <see cref="T:RuriLib.Http.RLHttpClient"/>.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpResponse.Request">
+            <summary>
+            The request that retrieved this response.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpResponse.Version">
+            <summary>
+            The HTTP version.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpResponse.StatusCode">
+            <summary>
+            The status code of the response.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpResponse.Headers">
+            <summary>
+            The headers of the response.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.Models.HttpResponse.Content">
+            <summary>
+            The content of the response.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.Models.HttpResponse.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Http.ProxyClientHandler">
+            <summary>
+            Represents <see cref="T:System.Net.Http.HttpMessageHandler"/> with a <see cref="P:RuriLib.Http.ProxyClientHandler.ProxyClient"/>
+            to provide proxy support to the <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.ProxyClient">
+            <summary>
+            The underlying proxy client.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.RawRequests">
+            <summary>
+            Gets the raw bytes of the last request that was sent.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.AllowAutoRedirect">
+            <summary>
+            Allow automatic redirection on 3xx reply.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.MaxNumberOfRedirects">
+            <summary>
+            The maximum number of times a request will be redirected.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.ReadResponseContent">
+            <summary>
+            Whether to read the content of the response. Set to false if you're only interested
+            in headers.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.SslProtocols">
+            <summary>
+            The allowed SSL or TLS protocols.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.UseCustomCipherSuites">
+            <summary>
+            If true, <see cref="P:RuriLib.Http.ProxyClientHandler.AllowedCipherSuites"/> will be used instead of the default ones.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.AllowedCipherSuites">
+            <summary>
+            The cipher suites to send to the server during the TLS handshake, in order.
+            The default value of this property contains the cipher suites sent by Firefox as of 21 Dec 2020.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.AutomaticDecompression">
+            <summary>
+            Gets the type of decompression method used by the handler for automatic 
+            decompression of the HTTP content response.
+            </summary>
+            <remarks>
+            Support GZip and Deflate encoding automatically
+            </remarks>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.UseCookies">
+            <summary>
+            Gets or sets a value that indicates whether the handler uses the CookieContainer
+            property to store server cookies and uses these cookies when sending requests.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.CookieContainer">
+            <summary>
+            Gets or sets the cookie container used to store server cookies by the handler.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.ServerCertificateCustomValidationCallback">
+            <summary>
+            Gets or sets delegate to verifies the remote Secure Sockets Layer (SSL) 
+            certificate used for authentication.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.ProxyClientHandler.CertRevocationMode">
+            <summary>
+            Gets or sets the X509 certificate revocation mode.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.ProxyClientHandler.#ctor(RuriLib.Proxies.ProxyClient)">
+            <summary>
+            Creates a new instance of <see cref="T:RuriLib.Http.ProxyClientHandler"/> given a <paramref name="proxyClient"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.ProxyClientHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sends a <paramref name="request"/> and returns an <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+            <param name="request">The request to send</param>
+            <param name="cancellationToken">A cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:RuriLib.Http.ProxyClientHandler.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Http.RLHttpClient">
+            <summary>
+            Custom implementation of an HttpClient.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.ProxyClient">
+            <summary>
+            The underlying proxy client.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.RawRequests">
+            <summary>
+            Gets the raw bytes of all the requests that were sent.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.AllowAutoRedirect">
+            <summary>
+            Allow automatic redirection on 3xx reply.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.MaxNumberOfRedirects">
+            <summary>
+            The maximum number of times a request will be redirected.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.ReadResponseContent">
+            <summary>
+            Whether to read the content of the response. Set to false if you're only interested
+            in headers.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.SslProtocols">
+            <summary>
+            The allowed SSL or TLS protocols.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.UseCustomCipherSuites">
+            <summary>
+            If true, <see cref="P:RuriLib.Http.RLHttpClient.AllowedCipherSuites"/> will be used instead of the default ones.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.AllowedCipherSuites">
+            <summary>
+            The cipher suites to send to the server during the TLS handshake, in order.
+            The default value of this property contains the cipher suites sent by Firefox as of 21 Dec 2020.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.AutomaticDecompression">
+            <summary>
+            Gets the type of decompression method used by the handler for automatic 
+            decompression of the HTTP content response.
+            </summary>
+            <remarks>
+            Support GZip and Deflate encoding automatically
+            </remarks>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.ServerCertificateCustomValidationCallback">
+            <summary>
+            Gets or sets delegate to verifies the remote Secure Sockets Layer (SSL) 
+            certificate used for authentication.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Http.RLHttpClient.CertRevocationMode">
+            <summary>
+            Gets or sets the X509 certificate revocation mode.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.RLHttpClient.#ctor(RuriLib.Proxies.ProxyClient)">
+            <summary>
+            Creates a new instance of <see cref="T:RuriLib.Http.RLHttpClient"/> given a <paramref name="proxyClient"/>.
+            If <paramref name="proxyClient"/> is null, <see cref="T:RuriLib.Proxies.Clients.NoProxyClient"/> will be used.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Http.RLHttpClient.SendAsync(RuriLib.Http.Models.HttpRequest,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sends a <paramref name="request"/> and returns an <see cref="T:RuriLib.Http.Models.HttpResponse"/>.
+            </summary>
+            <param name="request">The request to send</param>
+            <param name="cancellationToken">A cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:RuriLib.Http.RLHttpClient.Dispose">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

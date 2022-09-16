@@ -1,0 +1,447 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RuriLib.Parallelization</name>
+    </assembly>
+    <members>
+        <member name="T:RuriLib.Parallelization.Exceptions.RequiredStatusException">
+            <summary>
+            Exception that is thrown when a method of a <see cref="T:RuriLib.Parallelization.Parallelizer`2"/> can only
+            be executed when its status has one of the specified <see cref="T:RuriLib.Parallelization.ParallelizerStatus"/> values.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Exceptions.RequiredStatusException.#ctor(RuriLib.Parallelization.ParallelizerStatus,RuriLib.Parallelization.ParallelizerStatus)">
+            <summary>
+            When the <see cref="T:RuriLib.Parallelization.Parallelizer`2"/> requires a status of <paramref name="requiredStatus"/>
+            but the status was <paramref name="actualStatus"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Exceptions.RequiredStatusException.#ctor(RuriLib.Parallelization.ParallelizerStatus[],RuriLib.Parallelization.ParallelizerStatus)">
+            <summary>
+            When the <see cref="T:RuriLib.Parallelization.Parallelizer`2"/> requires a status in the <paramref name="requiredStatuses"/> array
+            but the status was <paramref name="actualStatus"/>.
+            </summary>
+        </member>
+        <member name="T:RuriLib.Parallelization.Models.ErrorDetails`1">
+            <summary>
+            Details of an error that happened while processing a work item.
+            </summary>
+            <typeparam name="TInput"></typeparam>
+        </member>
+        <member name="P:RuriLib.Parallelization.Models.ErrorDetails`1.Item">
+            <summary>The item that was being processed by the operation.</summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Models.ErrorDetails`1.Exception">
+            <summary>The exception thrown by the operation.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Models.ErrorDetails`1.#ctor(`0,System.Exception)">
+            <summary>
+            Creates error details for a given <paramref name="item"/> for which the work
+            function generated a given <paramref name="exception"/>
+            </summary>
+        </member>
+        <member name="T:RuriLib.Parallelization.Models.ResultDetails`2">
+            <summary>
+            Details the result of the execution of the work functions on a given input.
+            </summary>
+            <typeparam name="TInput">The type of input</typeparam>
+            <typeparam name="TOutput">The type of output</typeparam>
+        </member>
+        <member name="P:RuriLib.Parallelization.Models.ResultDetails`2.Item">
+            <summary>The item that was being processed by the operation.</summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Models.ResultDetails`2.Result">
+            <summary>The result returned by the operation.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Models.ResultDetails`2.#ctor(`0,`1)">
+            <summary>
+            Creates result details for a given <paramref name="item"/> for which
+            the work function generated a given <paramref name="result"/>.
+            </summary>
+        </member>
+        <member name="T:RuriLib.Parallelization.ParallelBasedParallelizer`2">
+            <summary>
+            Parallelizer that uses the Parallel.ForEachAsync function.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Threading.CancellationToken,System.Threading.Tasks.Task{`1}},System.Int32,System.Int64,System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.Start">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.Pause">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.Resume">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.Stop">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.Abort">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelBasedParallelizer`2.ChangeDegreeOfParallelism(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Parallelization.Parallelizer`2">
+            <summary>
+            Provides a managed way to execute parallelized work.
+            </summary>
+            <typeparam name="TInput">The type of the workload items</typeparam>
+            <typeparam name="TOutput">The type of the results</typeparam>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.MaxDegreeOfParallelism">
+            <summary>
+            The maximum value that the degree of parallelism can have when changed through the
+            <see cref="M:RuriLib.Parallelization.Parallelizer`2.ChangeDegreeOfParallelism(System.Int32)"/> method.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.Status">
+            <summary>
+            The current status of the parallelizer.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.Progress">
+            <summary>
+            Retrieves the current progress in the interval [0, 1].
+            The progress is -1 if the manager hasn't been started yet.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.CPM">
+            <summary>
+            Retrieves the completed work per minute.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.CPMLimit">
+            <summary>
+            Sets a maximum threshold for CPM. 0 to disable.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.StartTime">
+            <summary>
+            The time when the parallelizer started its work for its last running session.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.EndTime">
+            <summary>
+            The time when the parallelizer finished its work or was stopped (<see langword="null"/> if it hasn't finished
+            a single session yet).
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.ETA">
+            <summary>
+            The Estimated Time of Arrival (when the parallelizer is expected to finish all the work).
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.Elapsed">
+            <summary>
+            The time elapsed since the start of the session.
+            </summary>
+        </member>
+        <member name="P:RuriLib.Parallelization.Parallelizer`2.Remaining">
+            <summary>
+            The expected remaining time to finish all the work.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.status">
+            <summary>
+            The status of the parallelizer.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.degreeOfParallelism">
+            <summary>
+            The number of items that can be processed concurrently.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.workItems">
+            <summary>
+            The items to process.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.workFunction">
+            <summary>
+            The function to process items and get results.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.taskFunction">
+            <summary>
+            The function that turns each input item into an awaitable <see cref="T:System.Threading.Tasks.Task"/>.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.totalAmount">
+            <summary>
+            The total amount of work items that are expected to be enumerated (for progress calculations).
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.skip">
+            <summary>
+            The number of items to skip from the start of the collection (to restore previously aborted sessions).
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.processed">
+            <summary>
+            The current amount of work items that were processed so far.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.checkedTimestamps">
+            <summary>
+            The list of timestamps for CPM calculation.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.cpmLock">
+            <summary>
+            A lock that can be used to update the CPM from a single thread at a time.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.stopwatch">
+            <summary>
+            The stopwatch that calculates the elapsed time.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.softCTS">
+            <summary>
+            A soft cancellation token. Cancel this for soft AND hard abort.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.Parallelizer`2.hardCTS">
+            <summary>
+            A hard cancellation token. Cancel this for hard abort only.
+            </summary>
+        </member>
+        <member name="E:RuriLib.Parallelization.Parallelizer`2.TaskError">
+            <summary>Called when an operation throws an exception.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.OnTaskError(RuriLib.Parallelization.Models.ErrorDetails{`0})">
+            <summary>
+            Invokes a <see cref="E:RuriLib.Parallelization.Parallelizer`2.TaskError"/> event.
+            </summary>
+        </member>
+        <member name="E:RuriLib.Parallelization.Parallelizer`2.Error">
+            <summary>Called when the <see cref="T:RuriLib.Parallelization.Parallelizer`2"/> itself throws an exception.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.OnError(System.Exception)">
+            <summary>
+            Invokes a <see cref="E:RuriLib.Parallelization.Parallelizer`2.Error"/> event.
+            </summary>
+        </member>
+        <member name="E:RuriLib.Parallelization.Parallelizer`2.NewResult">
+            <summary>Called when an operation is completed successfully.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.OnNewResult(RuriLib.Parallelization.Models.ResultDetails{`0,`1})">
+            <summary>
+            Invokes a <see cref="E:RuriLib.Parallelization.Parallelizer`2.NewResult"/> event.
+            </summary>
+        </member>
+        <member name="E:RuriLib.Parallelization.Parallelizer`2.ProgressChanged">
+            <summary>Called when the progress changes.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.OnProgressChanged(System.Single)">
+            <summary>
+            Invokes a <see cref="E:RuriLib.Parallelization.Parallelizer`2.ProgressChanged"/> event.
+            </summary>
+        </member>
+        <member name="E:RuriLib.Parallelization.Parallelizer`2.Completed">
+            <summary>Called when all operations were completed successfully.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.OnCompleted">
+            <summary>
+            Invokes a <see cref="E:RuriLib.Parallelization.Parallelizer`2.Completed"/> event.
+            </summary>
+        </member>
+        <member name="E:RuriLib.Parallelization.Parallelizer`2.StatusChanged">
+            <summary>Called when <see cref="P:RuriLib.Parallelization.Parallelizer`2.Status"/> changes.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.OnStatusChanged(RuriLib.Parallelization.ParallelizerStatus)">
+            <summary>
+            Invokes a <see cref="E:RuriLib.Parallelization.Parallelizer`2.StatusChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Threading.CancellationToken,System.Threading.Tasks.Task{`1}},System.Int32,System.Int64,System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:RuriLib.Parallelization.Parallelizer`2"/>.
+            </summary>
+            <param name="workItems">The collection of data to process in parallel</param>
+            <param name="workFunction">The work function that must be executed on the data</param>
+            <param name="degreeOfParallelism">The amount of concurrent tasks that can be started</param>
+            <param name="totalAmount">The total amount of data that is expected from <paramref name="workItems"/></param>
+            <param name="skip">The amount of <paramref name="workItems"/> to skip at the beginning</param>
+            <param name="maxDegreeOfParallelism">The maximum degree of parallelism that can be set</param>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.Start">
+            <summary>
+            Starts the execution (without waiting for completion).
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.Pause">
+            <summary>Pauses the execution (waits until the ongoing operations are completed).</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.Resume">
+            <summary>Resumes a paused execution.</summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.Stop">
+            <summary>
+            Stops the execution (waits for the current items to finish).
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.Abort">
+            <summary>
+            Aborts the execution without waiting for the current work to finish.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.ChangeDegreeOfParallelism(System.Int32)">
+            <summary>
+            Dynamically changes the degree of parallelism.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.WaitCompletion(System.Threading.CancellationToken)">
+            <summary>
+            An awaitable handler that completes when the <see cref="P:RuriLib.Parallelization.Parallelizer`2.Status"/> is <see cref="F:RuriLib.Parallelization.ParallelizerStatus.Idle"/>.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.IsCPMLimited">
+            <summary>
+            Whether the CPM is limited to a certain amount (for throttling purposes).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RuriLib.Parallelization.Parallelizer`2.UpdateCPM">
+            <summary>
+            Updates the CPM (safe to be called from multiple threads).
+            </summary>
+        </member>
+        <member name="T:RuriLib.Parallelization.ParallelizerFactory`2">
+            <summary>
+            Collection of factory methods to help create parallelizers.
+            </summary>
+            <typeparam name="TInput">The type of input that the parallelizer accepts</typeparam>
+            <typeparam name="TOutput">The type of output that the parallelizer produces</typeparam>
+        </member>
+        <member name="M:RuriLib.Parallelization.ParallelizerFactory`2.Create(RuriLib.Parallelization.ParallelizerType,System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Threading.CancellationToken,System.Threading.Tasks.Task{`1}},System.Int32,System.Int64,System.Int32,System.Int32)">
+            <summary>
+            Creates a parallelizer from the given settings.
+            </summary>
+            <param name="type">The type of parallelizer to use</param>
+            <param name="workItems">The collection of items that need to be processed in parallel</param>
+            <param name="workFunction">The work function that asynchronously processes each item and produces an output</param>
+            <param name="degreeOfParallelism">The maximum number of items that can be processed concurrently</param>
+            <param name="totalAmount">The total amount of items that are expected to be enumerated (for Progress purposes)</param>
+            <param name="skip">The amount of items to skip from the beginning (to restore previously aborted sessions)</param>
+            <param name="maxDegreeOfParallelism">The maximum value that <paramref name="degreeOfParallelism"/> can assume when it is
+            changed with the <see cref="M:RuriLib.Parallelization.Parallelizer`2.ChangeDegreeOfParallelism(System.Int32)"/> method</param>
+        </member>
+        <member name="T:RuriLib.Parallelization.ParallelizerStatus">
+            <summary>
+            The status of the parallelizer.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Idle">
+            <summary>
+            The parallelizer has not started yet.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Starting">
+            <summary>
+            The parallelizer is starting up.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Running">
+            <summary>
+            The parallelizer is processing the workload.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Pausing">
+            <summary>
+            The parallelizer is pausing the workload.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Paused">
+            <summary>
+            The parallelizer is paused.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Stopping">
+            <summary>
+            The parallelizer is stopping the workload.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerStatus.Resuming">
+            <summary>
+            The parallelizer is recovering from a paused state.
+            </summary>
+        </member>
+        <member name="T:RuriLib.Parallelization.ParallelizerType">
+            <summary>
+            The types of parallelizing techniques available.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerType.TaskBased">
+            <summary>
+            Uses tasks to parallelize work.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerType.ThreadBased">
+            <summary>
+            Uses threads to parallelize work.
+            </summary>
+        </member>
+        <member name="F:RuriLib.Parallelization.ParallelizerType.ParallelBased">
+            <summary>
+            Uses Parallel.ForEachAsync to parallelize work.
+            </summary>
+        </member>
+        <member name="T:RuriLib.Parallelization.TaskBasedParallelizer`2">
+            <summary>
+            Parallelizer that expoits batches of multiple tasks and the WaitAll function.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Threading.CancellationToken,System.Threading.Tasks.Task{`1}},System.Int32,System.Int64,System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.Start">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.Pause">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.Resume">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.Stop">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.Abort">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.TaskBasedParallelizer`2.ChangeDegreeOfParallelism(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:RuriLib.Parallelization.ThreadBasedParallelizer`2">
+            <summary>
+            Parallelizer that expoits a custom pool of threads.
+            </summary>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Threading.CancellationToken,System.Threading.Tasks.Task{`1}},System.Int32,System.Int64,System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.Start">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.Pause">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.Resume">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.Stop">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.Abort">
+            <inheritdoc/>
+        </member>
+        <member name="M:RuriLib.Parallelization.ThreadBasedParallelizer`2.ChangeDegreeOfParallelism(System.Int32)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

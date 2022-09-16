@@ -1,0 +1,7 @@
+Thank you for downloading LuxenBullet!
+
+We constantly make updates, so first of all run "Update Check" before to start "LuxenBullet".
+
+It is better to turn off antivirus before to start it, since they can flag LuxenBullet as a "malware". This is due to false-positive (https://support.avira.com/hc/en-us/articles/360002183358-What-is-a-false-positive-Avira-Antivirus-detection-).
+
+That's all and don't use it to grab accounts without the permission of the "victim".
